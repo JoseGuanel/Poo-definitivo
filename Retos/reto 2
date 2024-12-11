@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+class Animal {
+    private String tipo;
+    private int edad;
+    private String estadoSalud;
+
+    public Animal(String tipo, int edad, String estadoSalud) {
+        this.tipo = tipo;
+        this.edad = edad;
+        this.estadoSalud = estadoSalud;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getEstadoSalud() {
+        return estadoSalud;
+    }
+
+    public boolean calificaRevisionGratuita() {
+        // Condiciones para revisión gratuita
+        if (edad >= 10 && estadoSalud.equalsIgnoreCase("malo")) {
+            return true;
+        } else if (edad < 1) {
+            return true;
+        }
+        return false;
+    }
+}
+
+public class Veterinaria {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la cantidad de animales que necesita registrar: ");
+        int cantidadAnimales = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+
+        int animalesRevisionGratuita = 0;
+        int animalesPago = 0;
+
+        for (int i = 0; i < cantidadAnimales; i++) {
+            System.out.println("\nRegistro del animal " + (i + 1) + ":");
+            
+            System.out.print("Tipo de animal: ");
+            String tipo = scanner.nextLine();
+
+            System.out.print("Edad del animal: ");
+            int edad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+
+            System.out.print("Estado de salud del animal (bueno/regular/malo): ");
+            String estadoSalud = scanner.nextLine();
+
+            // Crear el objeto Animal y verificar si califica para revisión gratuita
+            Animal animal = new Animal(tipo, edad, estadoSalud);
+            if (animal.calificaRevisionGratuita()) {
+                animalesRevisionGratuita++;
+            } else {
+                animalesPago++;
+            }
+        }
+
+        // Mostrar los resultados
+        System.out.println("\nResumen:");
+        System.out.println("Animales que califican para revisión gratuita: " + animalesRevisionGratuita);
+        System.out.println("Animales que deben pagar por el servicio: " + animalesPago);
+    }
+}

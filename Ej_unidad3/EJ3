@@ -1,0 +1,65 @@
+# Clase base
+class Vehiculo:
+    def __init__(self, nombre, velocidad):
+        self.nombre = nombre
+        self.velocidad = velocidad
+    
+    def moverse(self):
+        return f"{self.nombre} se está moviendo a {self.velocidad} km/h"
+
+# Clase Terrestre
+class Terrestre(Vehiculo):
+    def __init__(self, nombre, velocidad, traccion):
+        super().__init__(nombre, velocidad)
+        self.traccion = traccion
+    
+    def conducir(self):
+        return f"{self.nombre} está conduciendo con tracción {self.traccion}"
+
+# Clase Acuático
+class Acuatico(Vehiculo):
+    def __init__(self, nombre, velocidad, tipo_casco):
+        super().__init__(nombre, velocidad)
+        self.tipo_casco = tipo_casco
+    
+    def navegar(self):
+        return f"{self.nombre} está navegando con casco tipo {self.tipo_casco}"
+
+# Clase Aéreo
+class Aereo(Vehiculo):
+    def __init__(self, nombre, velocidad, altitud_maxima):
+        super().__init__(nombre, velocidad)
+        self.altitud_maxima = altitud_maxima
+    
+    def volar(self):
+        return f"{self.nombre} está volando a una altitud máxima de {self.altitud_maxima} metros"
+
+# Clase híbrida: Anfibio
+class Anfibio(Terrestre, Acuatico):
+    def __init__(self, nombre, velocidad, traccion, tipo_casco):
+        Terrestre.__init__(self, nombre, velocidad, traccion)
+        Acuatico.__init__(self, nombre, velocidad, tipo_casco)
+    
+    def moverse(self):
+        return f"{self.nombre} puede moverse tanto por tierra como por agua"
+
+# Clase híbrida: Dron
+class Dron(Terrestre, Aereo):
+    def __init__(self, nombre, velocidad, traccion, altitud_maxima):
+        Terrestre.__init__(self, nombre, velocidad, traccion)
+        Aereo.__init__(self, nombre, velocidad, altitud_maxima)
+    
+    def moverse(self):
+        return f"{self.nombre} puede moverse por tierra y volar hasta {self.altitud_maxima} metros"
+
+# Uso del sistema
+vehiculos = [
+    Terrestre("Coche", 120, "4x4"),
+    Acuatico("Lancha", 80, "fibra de vidrio"),
+    Aereo("Avión", 900, 10000),
+    Anfibio("AnfibioX", 60, "4x4", "reforzado"),
+    Dron("DronRacer", 50, "orugas", 500)
+]
+
+for vehiculo in vehiculos:
+    print(vehiculo.moverse())
